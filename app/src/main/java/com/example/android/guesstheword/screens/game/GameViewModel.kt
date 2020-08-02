@@ -68,6 +68,7 @@ class GameViewModel : ViewModel() {
                 "bubble"
         )
         wordList.shuffle()
+
     }
 
     init {
@@ -95,6 +96,10 @@ class GameViewModel : ViewModel() {
         _score.value = (score.value)?.plus(1)
         nextWord()
     }
+    /** Method for the game completed event **/
+    fun onGameFinish() {
+        _eventGameFinish.value = true
+    }
 
     /**
      * Moves to the next word in the list.
@@ -104,8 +109,15 @@ class GameViewModel : ViewModel() {
             if (!wordList.isEmpty()) {
                 //Select and remove a word from the list
                 _word.value = wordList.removeAt(0)
+            }else {
+                //Select and remove a _word from the list
+                _word.value = wordList.removeAt(0)
             }
 
     }
 
+    // Event which triggers the end of the game
+    private val _eventGameFinish = MutableLiveData<Boolean>()
+    val eventGameFinish: LiveData<Boolean>
+        get() = _eventGameFinish
 }
