@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-//@file:Suppress("DEPRECATION")
-
 package com.example.android.guesstheword.screens.game
 
 import android.os.Bundle
@@ -34,15 +32,11 @@ import com.example.android.guesstheword.databinding.GameFragmentBinding
 /**
  * Fragment where the game is played
  */
-@Suppress("DEPRECATION")
 class GameFragment : Fragment() {
-
 
     private lateinit var binding: GameFragmentBinding
 
-
     private lateinit var viewModel: GameViewModel
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,8 +48,9 @@ class GameFragment : Fragment() {
                 container,
                 false
         )
-
         Log.i("GameFragment", "Called ViewModelProviders.of")
+
+        // Get the viewModel
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
         binding.correctButton.setOnClickListener { onCorrect() }
@@ -64,39 +59,36 @@ class GameFragment : Fragment() {
         updateScoreText()
         updateWordText()
         return binding.root
-
     }
 
-
-    /** Methods for button click handlers **/
+    /** Methods for buttons presses **/
 
     private fun onSkip() {
         viewModel.onSkip()
         updateWordText()
         updateScoreText()
     }
-
     private fun onCorrect() {
         viewModel.onCorrect()
         updateScoreText()
         updateWordText()
     }
+
     private fun onEndGame() {
         gameFinished()
     }
-
-
-
 
     /** Methods for updating the UI **/
 
     private fun updateWordText() {
         binding.wordText.text = viewModel.word
+
     }
 
     private fun updateScoreText() {
         binding.scoreText.text = viewModel.score.toString()
     }
+
     /**
      * Called when the game is finished
      */
@@ -107,4 +99,3 @@ class GameFragment : Fragment() {
         NavHostFragment.findNavController(this).navigate(action)
     }
 }
-
