@@ -95,11 +95,10 @@ class GameViewModel : ViewModel() {
      */
     private fun nextWord() {
         //Select and remove a word from the list
-        private fun nextWord() {
             if (!wordList.isEmpty()) {
                 //Select and remove a word from the list
                 word.value = wordList.removeAt(0)
             }
-        }
+
     }
 }
