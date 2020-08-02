@@ -29,6 +29,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
+import androidx.navigation.fragment.NavHostFragment.findNavController
 
 /**
  * Fragment where the game is played
@@ -107,9 +108,11 @@ class GameFragment : Fragment() {
      */
     private fun gameFinished() {
         Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
-        //val action = GameFragmentDirections.actionGameToScore()
-        //action.score = viewModel.score.value?:0
-        //NavHostFragment.findNavController(this).navigate(action)
+        val action = GameFragmentDirections.actionGameToScore()
+        action.score = viewModel.score.value?:0
+        findNavController(this).navigate(action)
+        viewModel.onGameFinishComplete()
     }
+
 
 }
