@@ -42,6 +42,7 @@ class GameFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
@@ -54,6 +55,10 @@ class GameFragment : Fragment() {
         // Get the viewModel
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
         viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
+        })
+        // Observer for the Game finished event
+        viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
+            if (hasFinished) gameFinished()
         })
 
         binding.correctButton.setOnClickListener { onCorrect() }
@@ -106,4 +111,5 @@ class GameFragment : Fragment() {
         action.score = viewModel.score.value?:0
         NavHostFragment.findNavController(this).navigate(action)
     }
+
 }
